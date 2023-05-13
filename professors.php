@@ -11,11 +11,11 @@
         </div>
     </div>
 
-    <form action="medical-records.php" method="post">
+    <form method="post">
         <div class="flex justify-center scale-110 mb-10">
             <div class="mb-3 xl:w-96">
                 <label for="exampleFormControlInput1" class="form-label inline-block mb-2 text-gray-700">SSN:</label>
-                <input type="text" class="
+                <input type="number" id="ssn" class="
                 form-control
                 block
                 w-full
@@ -31,16 +31,66 @@
                 ease-in-out
                 m-0
                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-              " name="ssn" placeholder="" />
+              " name="ssn" />
             </div>
         </div>
 
         <div class="flex space-x-2 justify-center">
-            <input type="submit" name="submit" value="submit"
-                class="inline-block px-10 py-2.5 mb-10 bg-slate-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out">
+            <input type="submit" value="Submit" name="submitssnbutton"
+                class="button inline-block px-10 py-2.5 mb-10 bg-slate-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out">
         </div>
+
     </form>
 
+    <div class="flex space-x-2 justify-center scale-110 mb-10">
+        <style>
+        table, td, th {
+            border: 1px solid black;
+            width: 700px;
+        }
+        </style>
+            <?php
+            if(isset($_POST['submitssnbutton'])) {
+                getProfInfoFromSsn($_POST['ssn']);
+            }
+                function getProfInfoFromSsn($profssn) {
+                    $mysqli = new mysqli("mariadb","cs332u30","QBtqH95T","cs332u30");
+
+                    if ($mysqli -> connect_errno) {
+                    echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+                    exit();
+                    }
+
+                    $query = "SELECT title, classroom, meeting_days, start_time FROM SECTION INNER JOIN PROFESSOR ON SECTION.professor_ssn = PROFESSOR.ssn WHERE PROFESSOR.ssn = $profssn"; //You don't need a ; like you do in SQL
+                    $result = $mysqli -> query($query);
+
+
+                    if (!$result || mysqli_num_rows($result)==0) {
+                        echo "<td style=\"text-align:center\"><strong>No data found</strong></td>";
+                    } else {
+                        echo "<table>"; // start a table tag in the HTML
+                        echo "<div style=\"text-align:center\">";
+                        echo "<tr>
+                        <td style=\"text-align:center\"><strong>Title</strong></td>
+                        <td style=\"text-align:center\"><strong>Meeting room</strong></td>
+                        <td style=\"text-align:center\"><strong>Meeting days</strong></td>
+                        <td style=\"text-align:center\"><strong>Meeeting time</strong></td>
+                        </tr>";
+
+                        while($row = $result -> fetch_assoc()){   //Creates a loop to loop through results
+                        echo "<tr><td style=\"text-align:center\">" . htmlspecialchars($row['title']) . "</td><td style=\"text-align:center\">" . htmlspecialchars($row['classroom']) . "</td><td style=\"text-align:center\">" . htmlspecialchars($row['meeting_days']) . "</td><td style=\"text-align:center\">" . htmlspecialchars($row['start_time']) . "</td></tr>";  //$row['index'] the index here is a field name
+                        }
+
+                        echo "</div>";
+                        echo "</table>";
+                    }
+
+                    // Free result set
+                    $result -> free_result();
+                    $mysqli -> close();
+                }
+            ?>
+        </div>
 
 </main>
 
