@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<title> Student Schedule </title>
+<title> Student Courses </title>
 <?php include('subpages_header.php'); ?>
 
 <main style="min-height: calc(100vh - 176px - 104px);">
@@ -8,7 +8,7 @@
 
     <div class="flex items-center justify-center mb-10 scale-125">
         <div class="border-2 border-black bg-slate-900 basis-3/12 text-white rounded-lg mt-10 px-10 py-3">
-            <p>Schedule lookup</p>
+            <p>Courses lookup</p>
         </div>
     </div>
 
