@@ -3,8 +3,17 @@
 <title> Professor Grade Details </title>
 <?php include('subpages_header.php'); ?>
 
-<main style="min-height: calc(100vh - 176px - 104px);">
-    <h1 class="font-semibold leading-tight text-5xl mt-0 mb-2 text-grey-600 bold text-center mt-10">Professor Page</h1>
+<div class="flex mt-1 text-center" style=" padding-left: 3.5px;" >
+    <button type="button" onclick="window.location.href = './prof_selection.php'"
+                    class="inline-block px-6 py-2.5 bg-slate-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out"><    Back</button>
+                    <div style="width: 0.5%; float:left"></div>
+                    <button type="button" onclick="window.location.href = './index.php'"
+                    class="inline-block px-6 py-2.5 bg-slate-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out">Homepage</button>
+                </div>
+
+
+<main style="min-height: calc(100vh - 176px - 104px); padding-bottom: 100px; overflow-x: hidden">
+    <h1 class="font-semibold leading-tight text-5xl mt-0 mb-2 text-grey-600 bold text-center mt-1">Professor Page</h1>
 
     <div class="flex items-center justify-center mb-10 scale-125">
         <div class="border-2 border-black bg-slate-900 basis-3/12 text-white rounded-lg mt-10 px-10 py-3">
