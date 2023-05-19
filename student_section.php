@@ -70,7 +70,7 @@
                     exit();
                     }
 
-                    $query = "SELECT section_number, classroom, meeting_days, start_time FROM SECTION WHERE course_number = $c_num"; //You don't need a ; like you do in SQL
+                    $query = "SELECT SECTION.section_number, SECTION.classroom, SECTION.meeting_days, SECTION.start_time, COUNT(*) AS enrolled FROM SECTION INNER JOIN ENROLLMENT WHERE SECTION.course_number = $c_num AND SECTION.section_number = ENROLLMENT.section_number GROUP BY SECTION.section_number"; //You don't need a ; like you do in SQL
                     $result = $mysqli -> query($query);
 
 
@@ -92,10 +92,11 @@
                         <td style=\"text-align:center\"><strong>Meeting room</strong></td>
                         <td style=\"text-align:center\"><strong>Meeting days</strong></td>
                         <td style=\"text-align:center\"><strong>Meeting time</strong></td>
+                        <td style=\"text-align:center\"><strong>Enrolled students</strong></td>
                         </tr>";
 
                         while($row = $result -> fetch_assoc()){   //Creates a loop to loop through results
-                        echo "<tr><td style=\"text-align:center\">" . htmlspecialchars($row['section_number']) . "</td><td style=\"text-align:center\">" . htmlspecialchars($row['classroom']) . "</td><td style=\"text-align:center\">" . htmlspecialchars($row['meeting_days']) . "</td><td style=\"text-align:center\">" . htmlspecialchars($row['start_time']) . "</td></tr>";  //$row['index'] the index here is a field name
+                        echo "<tr><td style=\"text-align:center\">" . htmlspecialchars($row['section_number']) . "</td><td style=\"text-align:center\">" . htmlspecialchars($row['classroom']) . "</td><td style=\"text-align:center\">" . htmlspecialchars($row['meeting_days']) . "</td><td style=\"text-align:center\">" . htmlspecialchars($row['start_time']) . "</td><td style=\"text-align:center\">" . htmlspecialchars($row['enrolled']) . "</td></tr>";  //$row['index'] the index here is a field name
                         }
 
                         echo "</div>";
